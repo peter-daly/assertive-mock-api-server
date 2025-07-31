@@ -151,9 +151,9 @@ class Stub:
         strength = 0
         fields_to_check = ["method", "path", "headers", "body", "host", "query"]
 
-        for field in fields_to_check:
-            if getattr(self.request, field) is not None:
-                if getattr(request, field) != getattr(self.request, field):
+        for check_field in fields_to_check:
+            if getattr(self.request, check_field) is not None:
+                if getattr(request, check_field) != getattr(self.request, check_field):
                     return StubMatch(strength=0, stub=self)
                 strength += 1
 
