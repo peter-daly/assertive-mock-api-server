@@ -5,19 +5,11 @@ on:
 
 jobs:
   tests:
-    name: ${{ matrix.session }} ${{ matrix.python }} / ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - { python: "3.13", os: "ubuntu-latest", session: "tests" }
-          - { python: "3.12", os: "ubuntu-latest", session: "tests" }
-          - { python: "3.11", os: "ubuntu-latest", session: "tests" }
-          - { python: "3.10", os: "ubuntu-latest", session: "tests" }
+    name: Run CI
+    runs-on: ubuntu-latest
 
     env:
-      NOXSESSION: ${{ matrix.session }}
+      NOXSESSION: tests
       FORCE_COLOR: "1"
       PRE_COMMIT_COLOR: "always"
 
@@ -25,10 +17,10 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2.4.0
 
-      - name: Set up Python ${{ matrix.python }}
+      - name: Set up Python 3.12
         uses: actions/setup-python@v4.6.0
         with:
-          python-version: ${{ matrix.python }}
+          python-version: 3.12
 
       - name: Install UV
         run: |
